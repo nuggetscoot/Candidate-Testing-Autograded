@@ -24,37 +24,50 @@ function askForName() {
 function askQuestion() {
   // TODO 1.2b: Ask candidate the question and assign the response as candidateAnswer //
 for (let i = 0; i < questions.length; i++) {
-  candidateAnswer[i] = input.question(questions[i]);
+let answer = input.question(questions[i]);
+candidateAnswers.push(answer);
 }
 }
 
 function gradeQuiz(candidateAnswers) {
 
   // TODO 1.2c: Let the candidate know if they have answered the question correctly or incorrectly // 
-  let numCorrect = 0; // Count of correct answers
-
+  let numCorrect = 0;
+  let feedback = ""
   for (let i = 0; i < questions.length; i++) {
-    console.log(`Question ${i + 1}: ${questions[i]}`);
-    console.log(`Your Answer: ${candidateAnswers[i]}`);
-    console.log(`Correct Answer: ${correctAnswers[i]}\n`);
+    feedback += `\nQuestion ${i + 1}: ${questions[i]}\n`;
+    feedback += `Your answer: ${candidateAnswers[i]}\n`;
+    feedback += `Correct answer: ${correctAnswers[i]}\n`;
 
-    if (candidateAnswers[i].toLowerCase() === String(correctAnswers[i]).toLowerCase()) {
-      numCorrect++;
+    if (candidateAnswers[i].toLowerCase() === correctAnswers[i].toLowerCase()){
+      numCorrect ++
+      feedback += "Correct!\n"
+    } else {
+      feedback += "Incorrect.\n"
     }
   }
-  let grade;  //TODO 3.2 use this variable to calculate the candidates score.
 
+  
+   //TODO 3.2 use this variable to calculate the candidates score.
+let grade = (numCorrect / questions.length) * 100;
 
-  return grade;
+  if (grade >= 80) {
+  console.log(`Congratulations! You have passed the test with a grade of ${grade}%`)
+} else {
+  console.log(`You have failed the test with a grade of ${grade}%`)
 }
+  return feedback;
+  }
+
+
 
 function runProgram() {
   askForName();
-  // TODO 1.1c: Greet candidate using their name //
    console.log(`Hello, ${candidateName}.`);
   askQuestion();
-  gradeQuiz(this.candidateAnswers);
+  gradeQuiz(candidateAnswers);
 }
+runProgram()
 
 // ----------- Don't write any code or change any code below this line ---------- //
 module.exports = {
