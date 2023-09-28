@@ -56,9 +56,9 @@ let grade = (numCorrect / questions.length) * 100;
 } else {
   console.log(`You have failed the test with a grade of ${grade}%`)
 }
-  return feedback;
+console.log(feedback)
+return grade;
   }
-
 
 
 function runProgram() {
